@@ -1,0 +1,69 @@
+
+
+<!--DISPLAY BOOKS-->
+<!--If there are no books up for sale alert user with message, otherwise list books in 4 columns-->
+
+
+<div class="row">
+    
+    <div class ="col-md-4">
+        <%= image_tag @book.avatar.url(:thumb), class:"book-show" %>     
+        <p></p>
+        
+
+ 
+<!--Only let users edit or delete books if they are the user that created the book--> 
+        <% if user_signed_in? %>
+
+            <% if @book.user_id == current_user.id || current_user.id == 2 %>
+               
+                <%= link_to "Edit", edit_book_path(@book), class: "btn btn-primary" %>
+                <%= link_to "Delete", book_path(@book), class: "btn btn-primary",  method: :delete, data: { confirm: "Are you sure?" } %>
+            <% end %>
+        <% end %>
+    </div>
+    <div class ="col-md-8">
+        <div class="book-info">
+            
+            <h3 class="book-title">Title: <%= @book.title %></h3>
+            <h4 class="book-cname">Department name: <%= @book.department.name %></h4>
+            <h4 class="book-cnumber">Course number: <%= @book.cnumber %></h4>
+            <h4 class="book-quality">Quality: <%= @book.quality %></h4>
+            <h4 class="book-publisher">Publisher: <%= @book.publisher %></h4>
+            <h4 class="book-campus">SFU campus: <%= @book.campus %></h4>
+            <h4 class="book-price">Price: <%= @book.price %></h4>
+            ------------------------------Seller's information--------------------------
+        
+            <h4 class="book-username">Username: <%= @book.user_username %></h4>
+            <h4 class="book-email">Email: <%= @book.user_email %></h4>
+        
+            <h4><a href="https://completed.herokuapp.com/books?utf8=%E2%9C%93&username=<%= @book.user_username%>">View all my books</a>
+            </h4>
+            
+            
+        </div>
+    </div>
+    
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+
+<!-- User Comments-->
+<!--Add new comments and view comments already created for that book-->
+
+     <div class= "col-md-8">
+             <p></p>
+             <div class="book-info">
+            <%= render @book.reviews %>
+             <% if user_signed_in? %>
+            <div>
+                <%=link_to "Add Comment", new_book_review_path(@book), class: "btn btn-primary"  %>
+            </div>
+            <%end%>
+            </div>
+        </div>
+</div>
+
+       
+    
+
+  
+     

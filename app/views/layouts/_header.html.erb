@@ -1,0 +1,74 @@
+
+
+<!-- HEADER BAR -->
+<!--Embedded buttons in header bar-->
+<header class="navbar navbar-inverse">
+  <div class="container">
+    
+    <div class="navbar-header">
+      
+     <%= link_to "SFU USED BOOK SALES", root_path, id: "logo" %>
+      
+    </div>
+     <div id="navbar">
+       
+      <% if current_user %>
+      
+        <ul class="nav navbar-nav pull-right">
+          
+      
+       <li class="round-image-50"><%= image_tag(current_user.avatar.url(:thumb)) %></li>
+       
+         <!--User dropdown to view profile information, books they have added, logout button, or to change their settings-->
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <%= current_user.username %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", profile_path %></li>
+              <li>
+              <a href="https://completed.herokuapp.com/books?utf8=%E2%9C%93&username=<%=current_user.username%>">My Books</a>
+              </li>
+              <li><%= link_to "Settings", edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", destroy_user_session_path, method: :delete%>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      <% else %>
+         <ul class="nav navbar-nav pull-right">
+          <%= link_to "Login",   new_user_session_path,  class: 'navbar-brand' %>
+          
+          
+        </ul>
+      <% end %>
+    </div>
+   <!--Search bar for book title or user name - Displays books with title entered or created by user from username entered-->
+    <ul class= "nav navbar-nav search-bar pull-left">
+    <%= form_tag books_path, method: :get do %>
+    <%= text_field_tag :username, params[:username], placeholder: 'Username or Book Title' %>
+    <%= submit_tag "Search", name: nil %>
+    <% end %>
+    </ul>
+    
+    
+      
+      
+      
+   
+        
+      <ul class="nav navbar-nav pull-right">
+      <li><%= link_to "Home",   root_path,  class: 'navbar-brand' %>
+      <%= link_to "About",   about_path,  class: 'navbar-brand' %>
+      <%= link_to "Contact",   contact_path,  class: 'navbar-brand' %>
+      
+ 
+       </ul>
+   
+  </div>
+</header>
+
+
+     

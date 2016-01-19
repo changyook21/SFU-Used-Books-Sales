@@ -1,0 +1,21 @@
+
+<% if current_user %>
+
+  </br>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h1>Profile</h1>
+      <ul>
+        <li class="round-image-50"><%= image_tag(current_user.avatar.url(:thumb)) %></li>
+         <li><strong>Username:</strong> <%= current_user.username %></li>
+        <li><strong>Email:</strong> <%= current_user.email %></li>
+        <li><strong>Account</strong> Created at <%= current_user.created_at%></li>
+        <li><strong>Updated at</strong> <%= current_user.updated_at%></li>
+        
+        
+
+      </ul>
+    </div>
+  </div>
+<%end%>
+

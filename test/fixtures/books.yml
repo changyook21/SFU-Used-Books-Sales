@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  cname: MyString
+  cnumber: 1
+  quality: MyString
+  publisher: MyString
+  campus: MyString
+  price: 1
+
+two:
+  title: MyString
+  cname: MyString
+  cnumber: 1
+  quality: MyString
+  publisher: MyString
+  campus: MyString
+  price: 1

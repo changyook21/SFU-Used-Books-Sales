@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SFU USED BOOK SALES</title>
+  
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="navbar">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+      <a href="#" class = "btn btn-primary dropdown-toggle" data-toggle="dropdown">Department<b class = "caret"></b></a>
+          <ul class="dropdown-menu-depart dropdown-menu pull-left">
+            <% Department.all.each do |department| %>
+              <li>
+                  <%= link_to department.name, books_path(department: department.name), class:"link" %>
+              </li>
+             <% end %>
+          </ul>
+      </li>
+    </ul>
+  </div>
+
+  <%= render 'layouts/header' %>
+  
+ 
+  <div class="container">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+   
+  <%= yield %>
+   
+</div>
+
+
+<div class = "container">
+  <%= render 'layouts/footer' %>
+</div>
+
+ 
+
+</body>
+
+</html>

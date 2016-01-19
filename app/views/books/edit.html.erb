@@ -1,0 +1,41 @@
+
+<!--EDIT BOOK-->
+<!--Display form of parameters to let user make any changes to the book they added-->
+<!--Can only edit books they have added themselves-->
+<h1><p style="color:white;">Edit Book</p></h1>
+<div class = "center jumbotron">
+
+<%= simple_form_for @book, :html => {:multipart => true} do |f| %>
+   <% if @book.errors.any? %>
+    <h1>Please fix the following error(s).</h1>
+    <ul>
+        <% @book.errors.full_messages.each do |message| %>
+        
+        <li><%= message %></li>
+      
+        <% end %>
+       
+    </ul>
+    <h2>Hit 'Back' to return to the previous page</h2>
+    <% else %>
+        <strong>Book picture</strong>
+        <p></p>
+        <%= f.file_field :avatar %>
+        <p></p>
+        <%= f.input :title, label: "Book Title" %>
+        <strong>*Department name</strong>
+        <p></p>
+        <%= f.select :department_id, @departments %>
+
+        <p></p>
+        <%= f.input :cnumber, label: "Course Number" %>
+        <%= f.input :quality, label: "Book Quality" %>
+        <%= f.input :publisher, label: "Book Publisher" %>
+        <%= f.input :campus, label: "SFU Campus Location" %>
+        <%= f.input :price, label: "Book Price" %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+    <% end %>
+    
+
+<% end %>
+</div>

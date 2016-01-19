@@ -1,0 +1,127 @@
+
+<% if current_user %>
+<!-- Carousel Slide Show at top of home page that displays book covers our site has offered-->
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+
+	<div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+    <h4><img class="img-responsive center-block" src="http://ecx.images-amazon.com/images/I/51VC5o7UgKL._SX405_BO1,204,203,200_.jpg" alt="UI" style="width:250px; height:350px"><span style="font-style:normal;"><br><br><br><br></span></h4>
+
+    		<div class="carousel-caption">
+          
+        </div>
+
+    </div>
+    <div class="item">
+      <h4><img class="img-responsive center-block" src="http://ecx.images-amazon.com/images/I/51LJZgoNz6L._SY344_BO1,204,203,200_.jpg" alt="UI" style="width:250px; height:350px"><span style="font-style:normal;"><br><br><br><br></span>
+
+      	<div class="carousel-caption">
+          
+        </div>
+      	
+      </h4>
+    </div>
+    <div class="item">
+      <h4><img class="img-responsive center-block" src="http://i.imgur.com/6MBGHZk.png" alt="UI" style="width:250px; height:350px"><span style="font-style:normal;"><br><br><br><br></span>
+
+		<div class="carousel-caption">
+          
+        </div>
+
+    </div>
+
+ </h4>
+
+
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!--------------------------------------------------------------------------------------------------------------------------------------------->
+
+<!--BUYING BOOKS-->
+<!--First user selects a department and then the course number field will unhide for a more detailed search-->
+<h2 id = "sections"> Buying a Book? </h2>
+<ul class="nav navbar-nav">
+  <li class = "dropdown">
+          <a href="#" class = "btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Departments<span class = "caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <% Department.all.each do |department| %>
+                <li>
+                  <%= link_to department.name, books_path(department: department.name), class:"link" %>
+                </li>
+                <% end %>
+            </ul>
+  </li>
+</ul>
+
+</br></br></br>
+<% if !params[:department].blank? %>
+<h1><p style="color:white;"><class="current-department"> <%= params[:department] %></p></h1>
+<% end %>
+
+<%= form_tag books_path, method: :get do %>
+<%= hidden_field_tag :department, params[:department], class: 'form-control' %>
+
+<!--Hide course number search until user has selected a department!-->
+<% if !params[:department].blank? %>
+<%= text_field_tag :cnumber, params[:cnumber], placeholder: 'Three Digit Course #' %>
+
+<%= submit_tag "Search", name: nil %>
+<% end %>
+<% end %>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------->
+
+<!--DISPLAY BOOKS-->
+<!--If there are no books up for sale alert user with message, otherwise list books in 4 columns-->
+
+<% if @books.count == 0 %>
+  <h1><p style="color:white;">There are no books currently</p></h1>
+
+  <%= link_to "Add Book", new_book_path, class: "btn btn-primary" %>
+  </div>
+  </div>
+<% else %>
+
+<h2 id = "sections"> Selling a Book? </h2>
+  <%= link_to "Add Book", new_book_path, class: "btn btn-primary" %>
+  <h2 id = "sections">Recently Added Books</h2>
+<% end %>
+
+  
+  
+</br></br>
+
+  <div class="row">
+  <% @books.each do |book| %>
+    <div class = "col-md-3">
+    <a href="/books/<%= book.id %>">
+      <%= image_tag book.avatar.url(:medium), class: "book" %>
+    </a>
+    </div>
+
+<% end %>
+  </div> 
+
+
+<% else %>
+  <%= render 'welcome' %>
+<% end %>
